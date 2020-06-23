@@ -1,4 +1,4 @@
-package projetos.danilo.myguests
+package projetos.danilo.myguests.viewmodel
 
 import androidx.lifecycle.ViewModel
 

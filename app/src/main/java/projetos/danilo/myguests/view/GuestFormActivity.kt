@@ -1,10 +1,12 @@
-package projetos.danilo.myguests
+package projetos.danilo.myguests.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_guest_form.*
+import projetos.danilo.myguests.viewmodel.GuestViewModel
+import projetos.danilo.myguests.R
 
 class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
 

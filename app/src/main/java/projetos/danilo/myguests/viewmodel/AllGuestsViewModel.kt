@@ -1,4 +1,4 @@
-package projetos.danilo.myguests.ui.allguests
+package projetos.danilo.myguests.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

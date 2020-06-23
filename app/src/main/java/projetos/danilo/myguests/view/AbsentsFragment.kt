@@ -1,4 +1,4 @@
-package projetos.danilo.myguests.ui.absent
+package projetos.danilo.myguests.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import projetos.danilo.myguests.R
+import projetos.danilo.myguests.viewmodel.AbsentsViewModel
 
 class AbsentsFragment : Fragment() {
 
