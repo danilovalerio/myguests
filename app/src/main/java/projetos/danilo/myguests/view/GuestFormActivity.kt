@@ -7,18 +7,18 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_guest_form.*
-import projetos.danilo.myguests.viewmodel.GuestViewModel
+import projetos.danilo.myguests.viewmodel.GuestFormViewModel
 import projetos.danilo.myguests.R
 
 class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var viewModel: GuestViewModel
+    private lateinit var formViewModel: GuestFormViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guest_form)
 
-        viewModel = ViewModelProvider(this).get(GuestViewModel::class.java)
+        formViewModel = ViewModelProvider(this).get(GuestFormViewModel::class.java)
 
         setListeners()
         observe()
@@ -32,12 +32,12 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
             val name = edit_name.text.toString()
             val presence = radio_presence.isChecked
 
-            viewModel.save(name, presence)
+            formViewModel.save(name, presence)
         }
     }
 
     private fun observe() {
-        viewModel.saveGuest.observe(this, Observer {
+        formViewModel.saveGuest.observe(this, Observer {
             if(it){
                 Toast.makeText(this, "Sucesso", Toast.LENGTH_SHORT).show()
             } else {
