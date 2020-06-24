@@ -60,10 +60,10 @@ class GuestRepository private constructor(context: Context) {
             contentValues.put(DataBaseConstants.GUEST.COLUMNS.NAME, guest.name)
             contentValues.put(DataBaseConstants.GUEST.COLUMNS.PRESENCE, guest.presence) //banco trata boolean para inteiro 0 - falso
 
-            val whereClausule = DataBaseConstants.GUEST.COLUMNS.ID + " = ?"
+            val whereClause = DataBaseConstants.GUEST.COLUMNS.ID + " = ?"
             val args = arrayOf(guest.id.toString())
 
-            db.update(DataBaseConstants.GUEST.TABLE_NAME, contentValues, whereClausule, args)
+            db.update(DataBaseConstants.GUEST.TABLE_NAME, contentValues, whereClause, args)
             true
         } catch (e: Exception) {
             false
@@ -71,8 +71,18 @@ class GuestRepository private constructor(context: Context) {
 
     }
 
-    fun delete(guest: GuestModel) {
+    fun delete(id: Int): Boolean {
+        return try {
+            val db = mGuestDataBaseHelper.writableDatabase
 
+            val whereClause = DataBaseConstants.GUEST.COLUMNS.ID + " = ?"
+            val args = arrayOf(id.toString())
+
+            db.delete(DataBaseConstants.GUEST.TABLE_NAME, whereClause, args)
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 
 
