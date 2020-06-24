@@ -22,6 +22,50 @@ class GuestRepository private constructor(context: Context) {
         }
     }
 
+    fun get(id: Int): GuestModel? {
+        var guest: GuestModel? = null
+
+        return try {
+            val db = mGuestDataBaseHelper.readableDatabase
+
+            //Colunas de dados que queremos retornar dos usuários
+            val projection = arrayOf(
+                DataBaseConstants.GUEST.COLUMNS.NAME,
+                DataBaseConstants.GUEST.COLUMNS.PRESENCE
+            )
+
+            val contentValues = ContentValues()
+            contentValues.put(DataBaseConstants.GUEST.COLUMNS.NAME, guest.name)
+            contentValues.put(
+                DataBaseConstants.GUEST.COLUMNS.PRESENCE,
+                guest.presence
+            ) //banco trata boolean para inteiro 0 - falso
+
+            val whereClause = DataBaseConstants.GUEST.COLUMNS.ID + " = ?"
+            val args = arrayOf(id.toString())
+
+            //cursor que retorna os dados
+            val cursor = db.query(
+                DataBaseConstants.GUEST.TABLE_NAME,
+                projection, whereClause, args, null, null, null
+            )
+
+            if(cursor != null && cursor.count > 0){
+                cursor.moveToFirst()
+
+                val name = cursor.getString(cursor.getColumnIndex(DataBaseConstants.GUEST.COLUMNS.NAME))
+                val presence = (cursor.getInt(cursor.getColumnIndex(DataBaseConstants.GUEST.COLUMNS.PRESENCE)) == 1)
+
+                guest = GuestModel(id, name, presence)
+            }
+
+            cursor?.close()
+            guest
+        } catch (e: Exception) {
+            guest
+        }
+    }
+
     fun getAll(): List<GuestModel> {
         val list: MutableList<GuestModel> = ArrayList()
         return list
@@ -43,7 +87,10 @@ class GuestRepository private constructor(context: Context) {
 
             val contentValues = ContentValues()
             contentValues.put(DataBaseConstants.GUEST.COLUMNS.NAME, guest.name)
-            contentValues.put(DataBaseConstants.GUEST.COLUMNS.PRESENCE, guest.presence) //banco trata boolean para inteiro 0 - falso
+            contentValues.put(
+                DataBaseConstants.GUEST.COLUMNS.PRESENCE,
+                guest.presence
+            ) //banco trata boolean para inteiro 0 - falso
 
             db.insert(DataBaseConstants.GUEST.TABLE_NAME, null, contentValues)
             true
@@ -58,7 +105,10 @@ class GuestRepository private constructor(context: Context) {
 
             val contentValues = ContentValues()
             contentValues.put(DataBaseConstants.GUEST.COLUMNS.NAME, guest.name)
-            contentValues.put(DataBaseConstants.GUEST.COLUMNS.PRESENCE, guest.presence) //banco trata boolean para inteiro 0 - falso
+            contentValues.put(
+                DataBaseConstants.GUEST.COLUMNS.PRESENCE,
+                guest.presence
+            ) //banco trata boolean para inteiro 0 - falso
 
             val whereClause = DataBaseConstants.GUEST.COLUMNS.ID + " = ?"
             val args = arrayOf(guest.id.toString())
