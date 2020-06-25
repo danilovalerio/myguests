@@ -50,7 +50,7 @@ class AllGuestsFragment : Fragment() {
 
             override fun onDelete(id: Int) {
                 guestsViewModel.delete(id)
-                guestsViewModel.load()
+                guestsViewModel.load(GuestConstants.FILTER.EMPTY)
             }
         }
 
@@ -58,7 +58,7 @@ class AllGuestsFragment : Fragment() {
 
         setupObserve()
 
-        guestsViewModel.load()
+        guestsViewModel.load(GuestConstants.FILTER.EMPTY)
 
         return root
     }
@@ -67,7 +67,7 @@ class AllGuestsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        guestsViewModel.load()
+        guestsViewModel.load(GuestConstants.FILTER.EMPTY)
     }
 
     private fun setupObserve() {
