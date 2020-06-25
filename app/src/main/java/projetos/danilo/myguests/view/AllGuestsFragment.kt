@@ -14,12 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import projetos.danilo.myguests.R
 import projetos.danilo.myguests.view.adapter.GuestAdapter
+import projetos.danilo.myguests.view.listener.GuestListener
 import projetos.danilo.myguests.viewmodel.AllGuestsViewModel
 
 class AllGuestsFragment : Fragment() {
 
     private lateinit var allGuestsViewModel: AllGuestsViewModel
     private val mAdapter: GuestAdapter = GuestAdapter()
+    private lateinit var mListener: GuestListener
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -34,6 +36,15 @@ class AllGuestsFragment : Fragment() {
         val recycler = root.findViewById<RecyclerView>(R.id.rv_allguests)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = mAdapter
+
+        mListener = object : GuestListener {
+            override fun onClick(id: Int) {
+
+            }
+
+        }
+
+        mAdapter.attachListener(mListener)
 
         setupObserve()
 
