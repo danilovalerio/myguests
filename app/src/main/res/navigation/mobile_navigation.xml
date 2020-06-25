@@ -9,17 +9,17 @@
         android:id="@+id/nav_all"
         android:name="projetos.danilo.myguests.view.AllGuestsFragment"
         android:label="@string/menu_all_guests"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_allguests"/>
 
     <fragment
         android:id="@+id/nav_presents"
         android:name="projetos.danilo.myguests.view.PresentsFragment"
         android:label="@string/menu_present"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_presents" />
 
     <fragment
         android:id="@+id/nav_absents"
         android:name="projetos.danilo.myguests.view.AbsentsFragment"
         android:label="@string/menu_absents"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_absents" />
 </navigation>
