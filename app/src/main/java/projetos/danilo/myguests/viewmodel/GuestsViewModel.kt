@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import projetos.danilo.myguests.service.model.GuestModel
 import projetos.danilo.myguests.service.repository.GuestRepository
 
-class AllGuestsViewModel(application: Application) : AndroidViewModel(application) {
+class GuestsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val mGuestRepository = GuestRepository.getInstance(application.applicationContext)
 

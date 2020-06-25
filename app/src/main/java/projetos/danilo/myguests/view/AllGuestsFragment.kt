@@ -5,23 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import projetos.danilo.myguests.R
 import projetos.danilo.myguests.service.constants.GuestConstants
 import projetos.danilo.myguests.view.adapter.GuestAdapter
 import projetos.danilo.myguests.view.listener.GuestListener
-import projetos.danilo.myguests.viewmodel.AllGuestsViewModel
+import projetos.danilo.myguests.viewmodel.GuestsViewModel
 
 class AllGuestsFragment : Fragment() {
 
-    private lateinit var allGuestsViewModel: AllGuestsViewModel
+    private lateinit var guestsViewModel: GuestsViewModel
     private val mAdapter: GuestAdapter = GuestAdapter()
     private lateinit var mListener: GuestListener
 
@@ -30,8 +27,8 @@ class AllGuestsFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        allGuestsViewModel =
-                ViewModelProvider(this).get(AllGuestsViewModel::class.java)
+        guestsViewModel =
+                ViewModelProvider(this).get(GuestsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_allguests, container, false)
 
         //Configuração do recycler
@@ -52,8 +49,8 @@ class AllGuestsFragment : Fragment() {
             }
 
             override fun onDelete(id: Int) {
-                allGuestsViewModel.delete(id)
-                allGuestsViewModel.load()
+                guestsViewModel.delete(id)
+                guestsViewModel.load()
             }
         }
 
@@ -61,7 +58,7 @@ class AllGuestsFragment : Fragment() {
 
         setupObserve()
 
-        allGuestsViewModel.load()
+        guestsViewModel.load()
 
         return root
     }
@@ -70,11 +67,11 @@ class AllGuestsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        allGuestsViewModel.load()
+        guestsViewModel.load()
     }
 
     private fun setupObserve() {
-        allGuestsViewModel.guestList.observe(viewLifecycleOwner, Observer {
+        guestsViewModel.guestList.observe(viewLifecycleOwner, Observer {
             mAdapter.updateListGuest(it)
         })
     }
