@@ -1,5 +1,6 @@
 package projetos.danilo.myguests.view.viewholder
 
+import android.app.AlertDialog
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,19 @@ class GuestViewHolder(itemView: View, private val listener: GuestListener): Recy
 
         name.setOnClickListener {
             guest.id?.let { listener.onClick(it) }
+        }
+
+        name.setOnLongClickListener {
+
+            AlertDialog.Builder(itemView.context)
+                .setTitle("Remoção do Convidado")
+                .setMessage("Deseja remover mesmo?")
+                .setPositiveButton("Remover") { dialog, which ->
+                    guest.id?.let { listener.onDelete(it) }
+                }
+                .setNeutralButton("Cancelar", null)
+                .show()
+            true
         }
 
     }
