@@ -14,6 +14,7 @@ import projetos.danilo.myguests.service.constants.GuestConstants
 class GuestFormActivity : AppCompatActivity() {
 
     private lateinit var formViewModel: GuestFormViewModel
+    private var mGuestId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,13 +25,15 @@ class GuestFormActivity : AppCompatActivity() {
         loadData()
         setListeners()
         observe()
+
+        radio_presence.isChecked = true
     }
 
     private fun loadData() {
         val bundle = intent.extras
         if(bundle != null){
-            val id = bundle.getInt(GuestConstants.GUEST_ID)
-            formViewModel.load(id)
+            mGuestId = bundle.getInt(GuestConstants.GUEST_ID)
+            formViewModel.load(mGuestId)
         }
     }
 
@@ -50,7 +53,7 @@ class GuestFormActivity : AppCompatActivity() {
             if(it.presence) {
                 radio_presence.isChecked = true
             } else {
-                radio_presence.isChecked = true
+                radio_absent.isChecked = true
             }
         })
     }
@@ -61,7 +64,8 @@ class GuestFormActivity : AppCompatActivity() {
             val name = edit_name.text.toString()
             val presence = radio_presence.isChecked
 
-            formViewModel.save(name, presence)
+            //regra de negócio é da viewModel
+            formViewModel.save(mGuestId, name, presence)
         }
     }
 }
