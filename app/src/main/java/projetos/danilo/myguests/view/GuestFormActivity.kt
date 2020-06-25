@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_guest_form.*
 import projetos.danilo.myguests.viewmodel.GuestFormViewModel
 import projetos.danilo.myguests.R
 
-class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
+class GuestFormActivity : AppCompatActivity() {
 
     private lateinit var formViewModel: GuestFormViewModel
 
@@ -24,17 +24,17 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
         observe()
     }
 
-    override fun onClick(v: View) {
-        val id = v.id
-        if(id == R.id.button_save){
-
-
-            val name = edit_name.text.toString()
-            val presence = radio_presence.isChecked
-
-            formViewModel.save(name, presence)
-        }
-    }
+//    override fun onClick(v: View) {
+//        val id = v.id
+//        if(id == R.id.button_save){
+//
+//
+//            val name = edit_name.text.toString()
+//            val presence = radio_presence.isChecked
+//
+//            formViewModel.save(name, presence)
+//        }
+//    }
 
     private fun observe() {
         formViewModel.saveGuest.observe(this, Observer {
@@ -43,11 +43,17 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
             } else {
                 Toast.makeText(this, "Falha", Toast.LENGTH_SHORT).show()
             }
+            finish()
         })
     }
 
     //escutar os toques na tela
     private fun setListeners() {
-        button_save.setOnClickListener { this }
+        button_save.setOnClickListener {
+            val name = edit_name.text.toString()
+            val presence = radio_presence.isChecked
+
+            formViewModel.save(name, presence)
+        }
     }
 }

@@ -16,12 +16,11 @@ class GuestFormViewModel(application: Application): AndroidViewModel(application
     private var mSaveGuest = MutableLiveData<Boolean>()
     val saveGuest: LiveData<Boolean> = mSaveGuest
 
-
     fun save(name: String, presence: Boolean) {
 
         val guest =
             GuestModel(null, name, presence)
 
-        repository.save(guest)
+        mSaveGuest.value = repository.save(guest)
     }
 }
