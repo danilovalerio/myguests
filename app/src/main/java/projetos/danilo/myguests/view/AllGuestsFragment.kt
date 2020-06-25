@@ -50,7 +50,6 @@ class AllGuestsFragment : Fragment() {
                 intent.putExtras(bundle)
                 startActivity(intent)
             }
-
         }
 
         mAdapter.attachListener(mListener)

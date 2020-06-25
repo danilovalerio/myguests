@@ -14,6 +14,9 @@ class GuestViewHolder(itemView: View, private val listener: GuestListener): Recy
         val name = itemView.findViewById<TextView>(R.id.textview_name)
         name.text = guest.name
 
-        guest.id?.let { listener.onClick(it) }
+        name.setOnClickListener {
+            guest.id?.let { listener.onClick(it) }
+        }
+
     }
 }

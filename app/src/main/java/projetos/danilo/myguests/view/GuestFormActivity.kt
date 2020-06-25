@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_guest_form.*
 import projetos.danilo.myguests.viewmodel.GuestFormViewModel
 import projetos.danilo.myguests.R
+import projetos.danilo.myguests.service.constants.GuestConstants
 
 class GuestFormActivity : AppCompatActivity() {
 
@@ -20,21 +21,18 @@ class GuestFormActivity : AppCompatActivity() {
 
         formViewModel = ViewModelProvider(this).get(GuestFormViewModel::class.java)
 
+        loadData()
         setListeners()
         observe()
     }
 
-//    override fun onClick(v: View) {
-//        val id = v.id
-//        if(id == R.id.button_save){
-//
-//
-//            val name = edit_name.text.toString()
-//            val presence = radio_presence.isChecked
-//
-//            formViewModel.save(name, presence)
-//        }
-//    }
+    private fun loadData() {
+        val bundle = intent.extras
+        if(bundle != null){
+            val id = bundle.getInt(GuestConstants.GUEST_ID)
+            formViewModel.load(id)
+        }
+    }
 
     private fun observe() {
         formViewModel.saveGuest.observe(this, Observer {
@@ -44,6 +42,16 @@ class GuestFormActivity : AppCompatActivity() {
                 Toast.makeText(this, "Falha", Toast.LENGTH_SHORT).show()
             }
             finish()
+        })
+
+        formViewModel.guest.observe(this, Observer {
+            edit_name.setText(it.name)
+            edit_name.setSelection(it.name.length)
+            if(it.presence) {
+                radio_presence.isChecked = true
+            } else {
+                radio_presence.isChecked = true
+            }
         })
     }
 
