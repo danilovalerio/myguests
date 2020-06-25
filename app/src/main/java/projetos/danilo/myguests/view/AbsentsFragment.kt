@@ -34,6 +34,7 @@ class AbsentsFragment : Fragment() {
         //Configuração do recycler
         val recycler = root.findViewById<RecyclerView>(R.id.rv_absents)
         recycler.layoutManager = LinearLayoutManager(context)
+        recycler.setHasFixedSize(true)
         recycler.adapter = mAdapter
 
         mListener = object : GuestListener {

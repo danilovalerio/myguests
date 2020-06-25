@@ -19,8 +19,8 @@ class GuestViewHolder(itemView: View, private val listener: GuestListener): Recy
             guest.id?.let { listener.onClick(it) }
         }
 
+        //todo: Adicionar um ícone para exclusão de convidado
         name.setOnLongClickListener {
-
             AlertDialog.Builder(itemView.context)
                 .setTitle("Remoção do Convidado")
                 .setMessage("Deseja remover mesmo?")

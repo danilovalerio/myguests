@@ -23,11 +23,17 @@ class GuestFormViewModel(application: Application): AndroidViewModel(application
 
         val guest = GuestModel(id, name, presence)
 
-        if(id == 0) {
-            mSaveGuest.value = repository.save(guest)
+        if(name.isNullOrEmpty()) {
+            mSaveGuest.value = false
         } else {
-            mSaveGuest.value = repository.update(guest)
+            if(id == 0) {
+                mSaveGuest.value = repository.save(guest)
+            } else {
+                mSaveGuest.value = repository.update(guest)
+            }
         }
+
+
 
 
     }
