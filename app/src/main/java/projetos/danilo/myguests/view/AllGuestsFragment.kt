@@ -1,5 +1,6 @@
 package projetos.danilo.myguests.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import projetos.danilo.myguests.R
+import projetos.danilo.myguests.service.constants.GuestConstants
 import projetos.danilo.myguests.view.adapter.GuestAdapter
 import projetos.danilo.myguests.view.listener.GuestListener
 import projetos.danilo.myguests.viewmodel.AllGuestsViewModel
@@ -40,6 +42,13 @@ class AllGuestsFragment : Fragment() {
         mListener = object : GuestListener {
             override fun onClick(id: Int) {
 
+                val intent = Intent(context, GuestFormActivity::class.java)
+
+                val bundle = Bundle()
+                bundle.putInt(GuestConstants.GUEST_ID, id)
+
+                intent.putExtras(bundle)
+                startActivity(intent)
             }
 
         }
