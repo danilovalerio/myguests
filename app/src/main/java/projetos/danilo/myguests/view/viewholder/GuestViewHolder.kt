@@ -16,7 +16,7 @@ class GuestViewHolder(itemView: View, private val listener: GuestListener): Recy
         name.text = guest.name
 
         name.setOnClickListener {
-            guest.id?.let { listener.onClick(it) }
+            guest.id.let { listener.onClick(it) }
         }
 
         //todo: Adicionar um ícone para exclusão de convidado
@@ -25,7 +25,7 @@ class GuestViewHolder(itemView: View, private val listener: GuestListener): Recy
                 .setTitle("Remoção do Convidado")
                 .setMessage("Deseja remover mesmo?")
                 .setPositiveButton("Remover") { dialog, which ->
-                    guest.id?.let { listener.onDelete(it) }
+                    guest.let { listener.onDelete(it) }
                 }
                 .setNeutralButton("Cancelar", null)
                 .show()

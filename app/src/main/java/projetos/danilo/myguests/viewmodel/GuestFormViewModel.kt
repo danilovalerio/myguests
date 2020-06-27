@@ -11,7 +11,7 @@ import projetos.danilo.myguests.service.repository.GuestRepository
 class GuestFormViewModel(application: Application): AndroidViewModel(application) {
 
     private val mContext = application.applicationContext
-    private var repository: GuestRepository = GuestRepository.getInstance(mContext)
+    private var repository: GuestRepository = GuestRepository(mContext)
 
     private var mSaveGuest = MutableLiveData<Boolean>()
     val saveGuest: LiveData<Boolean> = mSaveGuest
@@ -21,9 +21,13 @@ class GuestFormViewModel(application: Application): AndroidViewModel(application
 
     fun save(id: Int, name: String, presence: Boolean) {
 
-        val guest = GuestModel(id, name, presence)
+        val guest = GuestModel().apply {
+            this.id = id
+            this.name = name
+            this.presence = presence
+        }
 
-        if(name.isNullOrEmpty()) {
+        if(name.isEmpty()) {
             mSaveGuest.value = false
         } else {
             if(id == 0) {
